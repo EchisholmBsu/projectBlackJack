@@ -20,7 +20,7 @@ public class Blackjack {
         deck.shuffle(); // Shuffle it, using the shuffle method from the deck class.
 
         RecklessPlayer dealer = new RecklessPlayer(); // Define a dealer.
-        ConsolePlayer player = new ConsolePlayer(); // Define a console player.
+        ConsolePlayer player = new ConsolePlayer(console); // Define a console player.
 
         /* Declare a string called choice, which will be defined by user input
          * starting with y or not.
@@ -66,8 +66,8 @@ public class Blackjack {
                                  Player dealer) {
         // Initialize hands: arrays that can hold up to 20 cards.
         // Initially the hands contain no cards.
-        Hand playerHand = new BlackjackHand();
-        Hand dealerHand = new BlackjackDealerHand();
+        BlackjackHand playerHand = new BlackjackHand();
+        BlackjackDealerHand dealerHand = new BlackjackDealerHand();
 
         // Deal the initial cards: two to the player, and two to the dealer.
         dealCard(deck, playerHand);
@@ -81,7 +81,7 @@ public class Blackjack {
          * then set the relevant field of BlackjackHand to show hand outcome is "Blackjack!"
          */
         if (playerHand.getValue() == 21 && !(dealerHand.getValue() == 21)) {
-            // playerHand.setBlackjack();  // You will need to uncomment this command when you have written
+            playerHand.setBlackjack();  // You will need to uncomment this command when you have written
             // the method setBlackjack in the appropriate class.
         }
 
@@ -94,7 +94,7 @@ public class Blackjack {
         }
 
         // Next it's the dealer's turn.
-        // dealerHand.setDealerTurn(true); // You will need to uncomment this command when you have written
+            dealerHand.setDealerTurn(true); // You will need to uncomment this command when you have written
         // the method setDealerTurn in the appropriate class.
         displayHands(dealerHand, playerHand); // The dealer reveals her hidden card.
 
@@ -114,10 +114,10 @@ public class Blackjack {
      * Modifiy this method to print the outcome of the hand of blackjack.
      */
 
-    private static void printResult(Hand playerHand, Hand dealerHand) {
+    private static void printResult(BlackjackHand playerHand, BlackjackDealerHand dealerHand) {
         int playerScore = playerHand.getValue();
         int dealerScore = dealerHand.getValue();
-        if (playerScore == 21)
+        if (playerHand.isBlackjack)
             System.out.println("Player Wins!");
         else if (dealerScore == 21)
             System.out.println("Dealer Wins!");
